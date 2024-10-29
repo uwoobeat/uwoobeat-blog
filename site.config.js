@@ -23,7 +23,8 @@ const CONFIG = {
   // blog setting (required)
   blog: {
     title: "글 쓰는 코딩노예",
-    description: "자주는 아니지만 잘 쓰려고 노력합니다."
+    description: "자주는 아니지만 잘 쓰려고 노력합니다.",
+    scheme: "light", // 'light' | 'dark' | 'system'
   },
 
   // CONFIG configration (required)
