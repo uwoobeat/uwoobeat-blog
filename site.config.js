@@ -4,7 +4,7 @@ const CONFIG = {
     name: "유우비트",
     image: "/avatar.svg", // If you want to create your own notion avatar, check out https://notion-avatar.vercel.app
     role: "Backend Developer",
-    bio: "글 쓰는 개발자 유우비트입니다.",
+    bio: "백엔드 개발자 유우비트입니다.",
     email: "uwoobeat@gmail.com",
     linkedin: "uwoobeat",
     github: "uwoobeat",
@@ -16,7 +16,7 @@ const CONFIG = {
       href: "https://github.com/depromeet/10mm-server"
     },
     {
-      name: 'GDSC Hongik 플랫폼',
+      name: '와우디벨로퍼스 플랫폼',
       href: "https://github.com/GDSC-Hongik/gdsc-server"
     }
   ],
@@ -73,7 +73,7 @@ const CONFIG = {
     },
   },
   isProd: process.env.VERCEL_ENV === "production", // distinguish between development and production environment (ref: https://vercel.com/docs/environment-variables#system-environment-variables)
-  revalidateTime: 60, // revalidate time for [slug], index
+  revalidateTime: 30, // revalidate time for [slug], index
 }
 
 module.exports = { CONFIG }
