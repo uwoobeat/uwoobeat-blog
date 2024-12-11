@@ -1,4 +1,6 @@
 exports.FONTS_SANS = [
+  '"Pretendard"', // TODO: vercel.json에 폰트 캐시 설정 추가
+  '"Geist"',
   '"IBM Plex Sans"',
   'ui-sans-serif',
   'system-ui',
