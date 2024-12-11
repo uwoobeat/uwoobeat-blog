@@ -1,10 +1,10 @@
 const BLOG = {
-  title: 'UWOOBEAT',
-  author: 'Jaehyun Ahn',
+  title: '글 쓰는 코딩노예',
+  author: '유우비트',
   email: 'uwoobeat@gmail.com',
   link: 'https://uwoobeat.dev',
-  description: 'This gonna be an awesome website.',
   lang: 'en-US', // ['en-US', 'zh-CN', 'zh-HK', 'zh-TW', 'ja-JP', 'es-ES']
+  description: '유우비트의 기술 블로그',
   timezone: 'Asia/Seoul', // Your Notion posts' date will be interpreted as this timezone. See https://en.wikipedia.org/wiki/List_of_tz_database_time_zones for all options.
   appearance: 'light', // ['light', 'dark', 'auto'],
   font: 'sans-serif', // ['sans-serif', 'serif']
