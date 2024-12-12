@@ -1,4 +1,4 @@
-import 'prism-themes/themes/prism-one-light.css'
+import 'prism-themes/themes/prism-coldark-cold.css'
 import 'react-notion-x/src/styles.css'
 import 'katex/dist/katex.min.css'
 import App from 'next/app'
