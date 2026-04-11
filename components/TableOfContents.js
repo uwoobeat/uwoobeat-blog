@@ -3,8 +3,9 @@ import { getPageTableOfContents } from 'notion-utils'
 import cn from 'classnames'
 
 export default function TableOfContents ({ blockMap, className, style }) {
-  const collectionId = Object.keys(blockMap.collection)[0]
-  const page = Object.values(blockMap.block).find(block => block.value.parent_id === collectionId).value
+  const collectionId = Object.keys(blockMap.collection || {})[0]
+  const page = Object.values(blockMap.block || {}).find(block => block?.value?.parent_id === collectionId)?.value
+  if (!page) return null
   const nodes = getPageTableOfContents(page, blockMap)
 
   if (!nodes.length) return null

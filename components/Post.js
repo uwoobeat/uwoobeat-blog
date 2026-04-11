@@ -51,7 +51,7 @@ export default function Post (props) {
             <span className="block">&nbsp;/&nbsp;</span>
           </div>
           <div className="mr-2 mb-4 md:ml-0">
-            <FormattedDate date={post.date} />
+            <FormattedDate date={post?.date?.start_date || post.createdTime} />
           </div>
           {post.tags && (
             <div className="flex flex-nowrap max-w-full overflow-x-auto article-tags">

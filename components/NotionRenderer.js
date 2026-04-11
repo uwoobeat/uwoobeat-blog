@@ -113,17 +113,6 @@ export default function NotionRenderer (props) {
     'serif': FONTS_SERIF
   }[config.font]
 
-  // Mark block types to be custom rendered by appending a suffix
-  if (props.recordMap) {
-    for (const { value: block } of Object.values(props.recordMap.block)) {
-      switch (block?.type) {
-        case 'toggle':
-          block.type += '_nobelium'
-          break
-      }
-    }
-  }
-
   return (
     <>
       <style jsx global>
@@ -134,7 +123,10 @@ export default function NotionRenderer (props) {
         `}
       </style>
       <Renderer
-        components={components}
+        components={{
+          ...components,
+          toggle: components.toggle_nobelium
+        }}
         mapPageUrl={mapPageUrl}
         {...props}
       />
