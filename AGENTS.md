@@ -26,7 +26,6 @@ layouts/          페이지 레이아웃 컴포넌트 (search)
 assets/i18n/      국제화(JSON) 리소스
 styles/           전역 CSS 및 Notion 전용 스타일 오버라이드
 public/           정적 자산 (파비콘, 폰트)
-patches/          pnpm 패치 파일 (react-notion-x, notion-utils)
 ```
 
 ## 아키텍처
@@ -99,12 +98,11 @@ patches/          pnpm 패치 파일 (react-notion-x, notion-utils)
 - React 컨텍스트 훅: `useX` 패턴 (`useConfig()`, `useTheme()`)
 - 서버 측에서 불러온 블로그 설정은 `BLOG`로 사용되는 관습 있음
 
-### 에러 처리
+### 에러 처리 및 캐싱
 
-- 코드베이스 전반에 걸쳐 명시적 에러 처리(`try/catch`)는 최소화되어 있음.
-- Notion API 호출 에러는 대부분 잡지 않고 Next.js의 에러 경계나 빌드 실패로 전달됨.
-- 간단한 진단 메시지는 `console.log`로 남기는 관습 있음.
-- Notion 응답과 같이 불확실한 값에는 옵셔널 체이닝(`?.`)과 널 병합 연산자(`??`) 사용해 안전하게 접근함.
+- **안정성**: Notion API 호출 시 발생할 수 있는 일시적 오류(429, 502 등)에 대응하기 위해 재시도(Retry) 로직이 구현되어 있음 (`lib/notion/getAllPosts.js`).
+- **성능**: 불필요한 API 호출을 방지하고 빌드 성능을 최적화하기 위해 인메모리 캐싱을 사용함. 상세한 재시도 횟수나 캐시 정책은 해당 파일의 코드를 참고할 것.
+- **안전한 접근**: Notion 응답 값과 같이 구조가 유동적인 데이터에는 옵셔널 체이닝(`?.`)을 사용해 런타임 에러를 방지함.
 
 ### CSS / 스타일링
 
@@ -113,25 +111,15 @@ patches/          pnpm 패치 파일 (react-notion-x, notion-utils)
 - Notion 블록 전용 스타일은 `styles/notion.css`에서 오버라이드함.
 - 다크 모드는 Tailwind의 `dark:` 변형 사용해 구현함.
 
-### 데이터 페칭
+### 데이터 페칭 및 필터링
 
-- Notion 기반 콘텐츠는 `getStaticProps`와 ISR(`revalidate: 1`)로 제공함.
-- 동적 경로는 `getStaticPaths`와 `fallback: true` 사용함.
-- Notion 데이터 관련 유틸은 `lib/notion/` 하위에 모아져 있음.
+- **전략**: `getStaticProps`와 ISR(`revalidate: 1`)을 사용하여 정적 페이지를 생성하고 콘텐츠를 최신 상태로 유지함.
+- **필터링**: Notion 데이터베이스의 속성(Status, Type, Date 등)을 기반으로 공개할 게시글을 선별함 (`lib/notion/filterPublishedPosts.js`). 구체적인 필터 조건은 코드를 참고할 것.
 
 ## 린팅
 
 ESLint는 `next/core-web-vitals` 확장만 사용함 (`.eslintrc.json`). 추가 룰이나
 플러그인 없음. 린트 실행은 `pnpm lint`임.
-
-## 패치된 의존성
-
-`patches/` 디렉터리에 pnpm 패치가 포함되어 있음:
-
-- `react-notion-x@6.16.0.patch`
-- `notion-utils@6.16.0.patch`
-
-패키지를 업그레이드할 때 패치가 깨질 수 있으므로 주의 필요.
 
 ## 주석 / 국제화
 
